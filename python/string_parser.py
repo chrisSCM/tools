@@ -37,6 +37,11 @@ for line in lang_text.split("\n"):
         line = line.replace('define(', '').replace(');', '')
         fields = line.split(',')
         (key, val) = parse_fields(fields)
+        # Handle duplicates...but this won't take care of multiple values ;-)
+        #  This mark will be easy to remove afterwards, when cleaning up
+        #  the language file.
+        if key in lang.keys():
+            key = f"{key} (2)"
         lang[key] = val
 
 
@@ -113,7 +118,7 @@ def touch_done_file(folder):
 # Create the "done" file in the given folders and subfolders.
 touch_done_file(f)
 # Loop again to create "done" files!
-for p in f.iterdir():
+for p in f.glob("**"):
     if p.is_dir():
         # Create a file to mark the folder as "done".
         touch_done_file(p)
