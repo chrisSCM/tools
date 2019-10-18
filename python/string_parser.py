@@ -1,5 +1,6 @@
 import argparse
 import re
+#import regex as re
 from pathlib import Path
 
 desc = ("Extract plain strings (to be translated) to a "
@@ -53,13 +54,13 @@ print(f"Parsing {ft}-files in folder '{f}'!")
 pattern = (
     ">[\n]*"
     "("
-    "[àâäèéêëîïôœùûüÿçÀÂÄÈÉÊËÎÏÔŒÙÛÜŸÇa-zA-Z\s]*"
-    "&*[a-zA-Z]*;*"
-    "[àâäèéêëîïôœùûüÿçÀÂÄÈÉÊËÎÏÔŒÙÛÜŸÇa-zA-Z\s]*"
-    "&*[a-zA-Z]*;*"
-    "[àâäèéêëîïôœùûüÿçÀÂÄÈÉÊËÎÏÔŒÙÛÜŸÇa-zA-Z\s]*"
-    "&*[a-zA-Z]*;*"
-    "\s*:*\s*"
+    "[àâäèéêëîïôœùûüÿçÀÂÄÈÉÊËÎÏÔŒÙÛÜŸÇa-zA-Z\s\-\+\:\,\.\/0-9]*"
+    "&*[a-zA-Z0-9']*;*"
+    "[àâäèéêëîïôœùûüÿçÀÂÄÈÉÊËÎÏÔŒÙÛÜŸÇa-zA-Z\s\-\+\:\,\.\/0-9]*"
+    "&*[a-zA-Z0-9']*;*"
+    "[àâäèéêëîïôœùûüÿçÀÂÄÈÉÊËÎÏÔŒÙÛÜŸÇa-zA-Z\s\-\+\:\,\.\/0-9]*"
+    "&*[a-zA-Z0-9']*;*"
+    "\s*\-*\+*\:*\,*\.*\/*\s*"
     ")"
     "[\n]*"
     "<"
@@ -101,7 +102,6 @@ for p in sorted(f.glob(g)):
                 # Add to language file!
                 key = f"_{fn.upper()}{str(i).zfill(3)}"
                 lang[s] = key
-                # print(f"Add key '{key}' to lang with value '{s}'")
                 i += 1
             code_snippet = f"<?={key}?>"
             print(f"Replace '{s}' in file with '{code_snippet}'")
