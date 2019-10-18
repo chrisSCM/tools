@@ -44,6 +44,7 @@ print(f"Parsing {ft}-files in folder '{f}'!")
 
 # This is the pattern from hell :-)
 # It doesn't work too bad, though.
+# (And it's made for the French language!)
 pattern = (
     ">[\n]*"
     "("
