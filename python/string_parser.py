@@ -3,6 +3,21 @@ import re
 #import regex as re
 from pathlib import Path
 
+"""
++++ USE AT YOUR OWN RISK!! +++
+
+Before using this, git commit all changes or take backups of the files!
+This script is far from perfect, it's been done in a time-efficient manner,
+trying to save a lot of time having to translate tons of stuff, but not investing
+too much time into cleaning out the script and its results.
+After using it, you will have to use git gui or alike, to commit the
+"good" changes and revert the bad ones!
+It will find a lot of strings it shouldn't have, and miss hits it shouldn't have missed.
+I'm not a RE expert, it all depends on the RE. Change it to meet your needs.
+
++++ USE AT YOUR OWN RISK!! +++
+"""
+
 desc = ("Extract plain strings (to be translated) to a "
         "language file and replace strings in the sources.")
 parser = argparse.ArgumentParser(description=desc)
@@ -106,7 +121,8 @@ for p in sorted(f.glob(g)):
             code_snippet = f"<?={key}?>"
             print(f"Replace '{s}' in file with '{code_snippet}'")
             text = text.replace(s, code_snippet)
-        new_file = Path(f"{p}.new")
+        # new_file = Path(f"{p}.new")
+        new_file = Path(f"{p}")
         new_file.write_text(text)
 
 
